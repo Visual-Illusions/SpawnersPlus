@@ -7,9 +7,11 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import static net.minecraftforge.common.config.Configuration.CATEGORY_GENERAL;
 
@@ -32,7 +34,7 @@ public class SpawnersPlus {
 
         xpDisabled = config.get(CATEGORY_GENERAL, "disableXPDrops", true).getBoolean();
         dropsEnabled = config.get(CATEGORY_GENERAL, "allowSpawnerDrop", true).getBoolean();
-        allowedMobSet.addAll(Arrays.asList(config.get(CATEGORY_GENERAL, "allowedMobs", "Cow,Chicken,Bat,Sheep,Pig").getStringList()));
+        allowedMobSet.addAll(Arrays.asList(config.get(CATEGORY_GENERAL, "allowedMobs", new String[]{ "Chicken", "Cow", "Creeper", "Enderman", "Ozelot", "Pig", "Sheep", "Wolf", "Zombie" }).getStringList()));
 
         config.save();
     }
@@ -42,11 +44,20 @@ public class SpawnersPlus {
         MinecraftForge.EVENT_BUS.register(new SpawnerEventHandler(this));
     }
 
+    @EventHandler
+    public void serverLoad(FMLServerStartingEvent event) {
+        event.registerServerCommand(new SetSpawnerCommand(this));
+    }
+
     boolean isXPDisabled() {
         return xpDisabled;
     }
 
     boolean allowSpawnerDrop() {
         return dropsEnabled;
+    }
+
+    List allowedMobSet() {
+        return allowedMobSet;
     }
 }
