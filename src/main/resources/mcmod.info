@@ -1,0 +1,16 @@
+[
+{
+  "modid": "spawnersplus",
+  "name": "Spawners Plus",
+  "description": "Mob Spawner dropping, reconfiguring, and xp drop disabling plugin",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["darkdiplomat"],
+  "credits": "Copyright (c) 2015 Visual Illusions Entertainment",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
