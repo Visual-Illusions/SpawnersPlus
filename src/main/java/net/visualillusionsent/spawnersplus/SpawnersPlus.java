@@ -8,9 +8,9 @@ import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
+import org.apache.commons.lang3.text.WordUtils;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static net.minecraftforge.common.config.Configuration.CATEGORY_GENERAL;
@@ -34,7 +34,10 @@ public class SpawnersPlus {
 
         xpDisabled = config.get(CATEGORY_GENERAL, "disableXPDrops", true).getBoolean();
         dropsEnabled = config.get(CATEGORY_GENERAL, "allowSpawnerDrop", true).getBoolean();
-        allowedMobSet.addAll(Arrays.asList(config.get(CATEGORY_GENERAL, "allowedMobs", new String[]{ "Chicken", "Cow", "Creeper", "Enderman", "Ozelot", "Pig", "Sheep", "Wolf", "Zombie" }).getStringList()));
+        String[] mobSetTemp = config.get(CATEGORY_GENERAL, "allowedMobs", new String[]{ "Chicken", "Cow", "Creeper", "Enderman", "Ozelot", "Pig", "Sheep", "Wolf", "Zombie" }).getStringList();
+        for (String mob : mobSetTemp) {
+            allowedMobSet.add(WordUtils.capitalizeFully(mob)); // Fix case
+        }
 
         config.save();
     }
